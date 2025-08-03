@@ -1,0 +1,515 @@
+/* ========== Variables ========== */
+:root {
+  --primary: #002366;
+  --secondary: #1b2e3c;
+  --accent: #187e5f;
+  --light: #f3e3e2;
+  --dark: #212529;
+  --gray: #6c757d;
+  --success: #27ae60;
+  --danger: #e74c3c;
+  --header-height: 70px;
+  --font-main: 'Noto Sans', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+}
+
+/* ========== Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--font-main);
+  background: #fafafa;
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* ========== Header ========== */
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  height: var(--header-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+.logo i {
+  margin-right: 10px;
+  color: var(--accent);
+}
+
+/* ========== Navigation ========== */
+.nav-menu {
+  display: flex;
+  list-style: none;
+}
+.nav-item {
+  margin: 0 15px;
+}
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* ========== Hero ========== */
+.hero {
+  background: linear-gradient(rgba(25, 57, 109, 0.9), rgba(17, 72, 160, 0.4)),
+    url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+.hero-content {
+  max-width: 800px;
+  margin: auto;
+}
+.hero-title {
+  font-size: 3rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.hero-subtitle {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: var(--accent);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn:hover {
+  background: #0b5844;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== Section Titles ========== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-family: var(--font-heading);
+  margin: 40px 0 50px;
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: var(--accent);
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ========== News Cards ========== */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+.news-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+.news-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+.news-img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+.news-content {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.news-category {
+  background: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  align-self: flex-start;
+}
+.news-title {
+  font-size: 1.35rem;
+  margin-bottom: 15px;
+}
+.news-excerpt {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+.news-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--gray);
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+/* ========== Stock Cards ========== */
+.stock-section,
+.currency-section {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.section-header h2 {
+  font-size: 1.8rem;
+  font-family: var(--font-heading);
+}
+.view-all {
+  font-weight: 600;
+  color: var(--secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.view-all i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+.view-all:hover i {
+  transform: translateX(3px);
+}
+.stock-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.stock-filter {
+  padding: 8px 20px;
+  background: #f1f1f1;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+.stock-filter.active,
+.stock-filter:hover {
+  background: var(--primary);
+  color: white;
+}
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.stock-card,
+.currency-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border-left: 4px solid var(--success);
+  transition: 0.3s;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+.stock-card.negative,
+.currency-card.negative {
+  border-left-color: var(--danger);
+}
+.stock-card:hover,
+.currency-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.stock-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.stock-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.stock-price.negative {
+  color: var(--danger);
+}
+.stock-symbol,
+.stock-change {
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+
+/* ========== Currency Grid ========== */
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.currency-flag {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+.currency-info {
+  flex-grow: 1;
+}
+.currency-rate {
+  font-size: 1.2rem;
+  font-weight: 700;
+  min-width: 110px;
+  text-align: right;
+}
+.currency-change {
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  min-width: 80px;
+  text-align: center;
+}
+.currency-change.positive {
+  background: #e8f5e9;
+  color: var(--success);
+}
+.currency-change.negative {
+  background: #ffebee;
+  color: var(--danger);
+}
+
+/* ========== Footer ========== */
+.footer {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 60px 0 30px;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 0 20px;
+}
+.footer-section h3 {
+  font-size: 1.4rem;
+  font-family: var(--font-heading);
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+}
+.footer-section h3::after {
+  content: '';
+  width: 50px;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--accent);
+}
+.footer-links {
+  list-style: none;
+}
+.footer-links li {
+  margin-bottom: 12px;
+}
+.footer-links a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+}
+.footer-links a:hover {
+  color: var(--accent);
+}
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+.social-link:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+.contact-info {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+.contact-info i {
+  margin-right: 12px;
+  color: var(--accent);
+}
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 992px) {
+  .nav-menu {
+    flex-direction: column;
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    background: var(--primary);
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    align-items: center;
+    justify-content: start;
+    transition: left 0.3s;
+    padding: 40px 0;
+  }
+  .nav-menu.active {
+    left: 0;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .highlights {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 20px;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .stock-grid,
+  .currency-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .hero {
+    padding: 60px 20px;
+  }
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .side-card {
+    flex-direction: column;
+  }
+  .side-card-img {
+    width: 100%;
+    height: 150px;
+  }
+  .currency-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .currency-flag {
+    margin: 0 auto 15px;
+  }
+}
