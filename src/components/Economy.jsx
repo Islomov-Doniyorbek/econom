@@ -8,13 +8,16 @@ const Economy = () => {
   const [articles, setArticles] = useState([]);
 
   const fetchArticles = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/all`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
-    setArticles(data.data || []);
-  };
+  const token = localStorage.getItem('token');
+
+  const res = await fetch(`${API}/all`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+
+  const data = await res.json();
+  setArticles(data.data || []);
+};
+
 
   useEffect(()=>{
     fetchArticles();
