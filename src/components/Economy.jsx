@@ -24,6 +24,7 @@ const Economy = () => {
     <section className="container" id="economic-articles">
       <h2 className="section-title">Economic Articles <Link to={"/articles"}>Blogs</Link></h2>
 
+
       <div className="news-grid">
         {
           blogs.map(item=>{

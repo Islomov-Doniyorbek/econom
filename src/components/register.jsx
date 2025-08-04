@@ -16,7 +16,7 @@ const Register = () => {
       await register(fullname,email, password);
       navigate("/verify", { state: { email } });
     } catch (err) {
-      alert(err.message);
+      alert(err.message); 
     }
   };
 
