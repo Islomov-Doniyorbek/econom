@@ -50,7 +50,7 @@ const Header = () => {
           </li>
           <li className="nav-item">
             {
-              localStorage.getItem('email').length !== 0 ? 
+              localStorage.getItem('email') ? 
               <p className='flex gap-5 items-center'>{localStorage.getItem('email').slice(0, 7)} <button 
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
               onClick={() => navigate('/admin')}>Admin</button></p> 
