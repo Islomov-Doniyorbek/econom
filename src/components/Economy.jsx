@@ -3,25 +3,24 @@ import '../index.css';
 import { Link } from 'react-router-dom';
 
 const Economy = () => {
-  const API = 'https://economily-production.up.railway.app/api/v1/article';
-
   const [articles, setArticles] = useState([]);
-
-  const fetchArticles = async () => {
-  const token = localStorage.getItem('token');
-
-  const res = await fetch(`${API}/all`, {
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  });
-
-  const data = await res.json();
-  setArticles(data.data || []);
-};
-
-
-  useEffect(()=>{
-    fetchArticles();
-  },[])
+    const API = 'https://economily-production.up.railway.app/api/v1/article';
+  
+    const fetchArticles = async () => {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setArticles(data.data || []);
+    };
+  //   setArticles(articles.reverse())
+  
+    useEffect(() => {
+      fetchArticles();
+    }, []);
   const blogs = articles.reverse().slice(-3)
   return (
     <section className="container" id="economic-articles">
