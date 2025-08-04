@@ -5,11 +5,19 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [email, setEmail] = useState(localStorage.getItem("email"));
+  // const [token, setToken] = useState(localStorage.getItem("token"));
 
   const saveToken = (newToken) => {
     localStorage.setItem("token", newToken);
     setToken(newToken);
   };
+  const saveEmail = (newEmail) => {
+    localStorage.setItem("email", newEmail);
+    setEmail(newEmail);
+  };
+  
+  // localStorage.setItem('user', JSON.stringify(user));
 
   const login = async (email, password) => {
     const res = await fetch("https://economily-production.up.railway.app/api/v1/auth/login-by-email", {
@@ -20,7 +28,11 @@ export const AuthProvider = ({ children }) => {
 
     if (!res.ok) throw new Error("Login failed");
     const data = await res.json();
+    console.log(data.email);
+    console.log(data);
+    
     saveToken(data.data);
+    saveEmail(email);
   };
 
   const register = async (fullName, email, password) => {
@@ -51,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, register, verify, logout }}>
+    <AuthContext.Provider value={{email, token, login, register, verify, logout }}>
       {children}
     </AuthContext.Provider>
   );

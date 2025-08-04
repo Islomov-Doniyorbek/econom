@@ -32,12 +32,20 @@ const AdminDashboard = () => {
         <section className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-700">Foydalanuvchilar</h2>
+            <div className="btns flex gap-2.5">
+              <button
+              onClick={() => navigate('/dashboard')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
+            >
+              Home
+            </button>
             <button
               onClick={() => navigate('/article')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
             >
               Maqolalar
             </button>
+            </div>
           </div>
 
           <div className="overflow-x-auto">

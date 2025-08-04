@@ -7,7 +7,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  
+  // localStorage.setItem('user', JSON.stringify(user));
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -18,6 +19,7 @@ const Login = () => {
       } else {
         navigate("/dashboard");
       }
+      
     } catch (err) {
       alert(err.message);
     }
