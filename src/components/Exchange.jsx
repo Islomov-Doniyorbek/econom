@@ -1,93 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../index.css';
+import { FaDollarSign } from 'react-icons/fa';
 
 const CurrencyExchange = () => {
+  const [rates, setRates] = useState([]);
+
+  const neededCodes = ['USD', 'RUB', 'TRY', 'KZT', 'EUR', 'CNY']; // kerakli valyutalar
+
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const API = `https://cbu.uz/uz/arkhiv-kursov-valyut/json/all/${today}/`;
+        const res = await fetch(API);
+        const data = await res.json();
+
+        // Faqat kerakli valyutalarni ajratib olamiz
+        const filtered = data.filter((item) => neededCodes.includes(item.Ccy));
+        setRates(filtered);
+      } catch (err) {
+        console.error('Valyuta olishda xatolik:', err);
+      }
+    };
+
+    fetchRates();
+    
+  }, []);
+  console.log(rates);
+
   return (
     <section className="container" id="currency-rates">
       <div className="currency-section">
         <div className="section-header">
           <h2>Currency Exchange Rates</h2>
-          <span className="update-time">Updated: 15:30 Tashkent Time</span>
+          <span className="update-time">Updated: {today}</span>
         </div>
 
         <div className="currency-grid">
+          {
+            rates.map(item=>{
+             return (
+               <div key={item.id} className="currency-card">
+                <div className="currency-flag">
+                  <FaDollarSign/>
+                </div>
+                <div className="currency-info">
+                  <div className="currency-name">{item.CcyNm_UZ}</div>
+                  <div className="currency-code">({item.Ccy}):</div>
+                </div>
+                <div className="currency-rate">{item.Rate}</div>
+                <div className={`currency-change ${parseFloat(item.Diff) > 0 ? 'positive' : 'negative'}`}>
+                  {item.Diff}
+                </div>
+              </div>
+             )
+
+            })
+          }
           {/* USD */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-dollar-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">US Dollar</div>
-              <div className="currency-code">USD</div>
-            </div>
-            <div className="currency-rate">12,450 UZS</div>
-            <div className="currency-change positive">+0.3%</div>
-          </div>
 
           {/* EUR */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-euro-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">Euro</div>
-              <div className="currency-code">EUR</div>
-            </div>
-            <div className="currency-rate">13,680 UZS</div>
-            <div className="currency-change negative">-0.2%</div>
-          </div>
-
-          {/* GBP */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-pound-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">British Pound</div>
-              <div className="currency-code">GBP</div>
-            </div>
-            <div className="currency-rate">15,920 UZS</div>
-            <div className="currency-change positive">+0.5%</div>
-          </div>
-
-          {/* JPY */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-yen-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">Japanese Yen</div>
-              <div className="currency-code">JPY</div>
-            </div>
-            <div className="currency-rate">85.4 UZS</div>
-            <div className="currency-change">0.0%</div>
-          </div>
-
-          {/* RUB */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-ruble-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">Russian Ruble</div>
-              <div className="currency-code">RUB</div>
-            </div>
-            <div className="currency-rate">135.7 UZS</div>
-            <div className="currency-change positive">+1.2%</div>
-          </div>
-
-          {/* KRW */}
-          <div className="currency-card">
-            <div className="currency-flag">
-              <i className="fas fa-won-sign"></i>
-            </div>
-            <div className="currency-info">
-              <div className="currency-name">Korean Won</div>
-              <div className="currency-code">KRW</div>
-            </div>
-            <div className="currency-rate">9.4 UZS</div>
-            <div className="currency-change negative">-0.3%</div>
-          </div>
+      
         </div>
 
         <div className="currency-notice">
