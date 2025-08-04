@@ -1,7 +1,7 @@
 import React from 'react';
 import '../index.css';
 import useAuth from '../context/useAuth';
-import { useNavigate } from 'react-router-dom'; // sahifa o‘zgartirish uchun
+import { Link, useNavigate } from 'react-router-dom'; // sahifa o‘zgartirish uchun
 
 const Header = () => {
   const { user, logout } = useAuth(); // ⬅️ faqat keraklilarni olamiz
@@ -19,7 +19,9 @@ const Header = () => {
         </button>
         <ul className="nav-menu" id="navMenu">
           <li className="nav-item">
+            <Link to={"/"}>
             <a className="nav-link active" href="#">Home</a>
+          </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">Politics</a>

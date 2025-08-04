@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './admin.css'
+import { useNavigate } from 'react-router-dom';
+
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const [articles, setArticles] = useState([]);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [message, setMessage] = useState('');
-
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchUsers();
-    fetchArticles();
   }, []);
 
   const fetchUsers = async () => {
@@ -22,143 +18,61 @@ const AdminDashboard = () => {
       const data = await res.json();
       setUsers(data?.data || []);
       console.log(data);
-      
     } catch (err) {
       console.error('Users fetch error:', err);
     }
   };
 
-  const fetchArticles = async () => {
-    try {
-      const res = await fetch('https://economily-production.up.railway.app/api/v1/article/all', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      setArticles(data?.data || []);
-      console.log(data);
-      
-    } catch (err) {
-      console.error('Articles fetch error:', err);
-    }
-  };
-
-  const handleAddArticle = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('https://economily-production.up.railway.app/api/v1/article/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ title, content }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage('Maqola yaratildi!');
-        fetchArticles();
-        setTitle('');
-        setContent('');
-      } else {
-        setMessage(data?.message || 'Xatolik');
-      }
-    } catch (err) {
-      console.error('Create article error:', err);
-    }
-  };
-
-  const handleDeleteArticle = async (id) => {
-    if (!window.confirm('Haqiqatan o‘chirmoqchimisiz?')) return;
-    try {
-      const res = await fetch('https://economily-production.up.railway.app/api/v1/article/delete', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id }),
-      });
-      if (res.ok) {
-        fetchArticles();
-      }
-    } catch (err) {
-      console.error('Delete error:', err);
-    }
-  };
-  console.log(articles);
-  
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+    <div className="min-h-screen bg-gray-50 py-10 px-4 md:px-10">
+      
+      <div className="max-w-7xl mx-auto bg-white shadow-md rounded-xl p-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Admin Dashboard</h1>
 
-      <section className="users-section">
-        <h2>Foydalanuvchilar</h2>
-        <ul>
-          {
-            articles.map(item=>{
-              return <h1>{item}</h1>
-            })
-          }
-        </ul>
-        <table>
-          <thead>
-            <tr>
-              <th>T/r</th>
-              <th>FullName</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, i) => (
-                 <tr key={user.id}>
-                  <td>{i + 1}</td>
-                  <td>
-                    {user.fullName === null ? "None" : user.fullName}
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.status}</td>
-                  <td>{user.roles}</td>
+        <section className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold text-gray-700">Foydalanuvchilar</h2>
+            <button
+              onClick={() => navigate('/article')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
+            >
+              Maqolalar
+            </button>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm text-left border border-gray-200">
+              <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
+                <tr>
+                  <th className="px-4 py-3 border">T/r</th>
+                  <th className="px-4 py-3 border">FullName</th>
+                  <th className="px-4 py-3 border">Email</th>
+                  <th className="px-4 py-3 border">Status</th>
+                  <th className="px-4 py-3 border">Role</th>
+                  <th className="px-4 py-3 border">Vaqt</th>
                 </tr>
-              
-            ))}
-           
-          </tbody>
-        </table>
-      </section>
-
-      <section className="articles-section">
-        <h2>Maqolalar</h2>
-        <ul>
-          {articles.map((article) => (
-            <li key={article.id}>
-              <strong>{article.title}</strong>
-              <p>{article.content}</p>
-              <button onClick={() => handleDeleteArticle(article.id)}>O'chirish</button>
-            </li>
-          ))}
-        </ul>
-
-        <form onSubmit={handleAddArticle} className="add-article-form">
-          <h3>Yangi maqola qo‘shish</h3>
-          <input
-            type="text"
-            placeholder="Sarlavha"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Kontent"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          ></textarea>
-          <button type="submit">Qo‘shish</button>
-        </form>
-        {message && <p className="msg">{message}</p>}
-      </section>
+              </thead>
+              <tbody>
+                {users.map((user, i) => (
+                  <tr
+                    key={user.id}
+                    className={`${
+                      i % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                    } hover:bg-gray-100 transition`}
+                  >
+                    <td className="px-4 py-2 border">{i + 1}</td>
+                    <td className="px-4 py-2 border">{user.fullName ?? 'None'}</td>
+                    <td className="px-4 py-2 border">{user.email}</td>
+                    <td className={`px-4 py-2 border ${user.status === 'PENDING' ? 'bg-orange-500' : 'bg-emerald-500'}`}>{user.status}</td>
+                    <td className="px-4 py-2 border">{user.roles}</td>
+                    <td className="px-4 py-2 border">{user.createdAt}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

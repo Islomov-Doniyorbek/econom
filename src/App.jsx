@@ -15,6 +15,9 @@ import {AuthProvider} from "./context/Authcontext";
 import Dashboard from './components/dashboard';
 import Verify from './components/verify';
 import AdminDashboard from './components/admin';
+import AdminDashboard2 from './components/article';
+import Articles from './components/articles';
+import ArticleDetails from './components/[id]/articleDetails';
 
 
 
@@ -29,6 +32,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/article" element={<AdminDashboard2 />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/article/:id" element={<ArticleDetails />} />
         </Routes>
       </BrowserRouter>   
     </AuthProvider>
