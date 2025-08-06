@@ -24,6 +24,7 @@ body {
   background: #fafafa;
   color: var(--dark);
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
 /* ========== Header ========== */

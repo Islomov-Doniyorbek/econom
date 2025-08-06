@@ -1,14 +1,15 @@
 import React from 'react';
-import { FaChevronCircleRight, FaClock, FaEnvelope, FaFacebook, FaInstagram, FaMapMarkerAlt, FaPhone, FaTelegram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaChartPie, FaChevronCircleRight, FaClock, FaEnvelope, FaFacebook, FaInstagram, FaMapMarkerAlt, FaNewspaper, FaPhone, FaTelegram, FaTimesCircle, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 import '../index.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <><footer className="footer">
 <div className="footer-container">
 <div className="footer-section">
-<h3>About Uzbekistan Daily</h3>
+<h3>About <br/> The project</h3>
 <p>Economily is your daily guide to the most compelling and unconventional stories in global and Uzbekistan’s economy. We break down complex topics into clear, detailed insights—making economics simple, smart, and impossible to ignore.</p>
 <div className="social-links mt-1.5">
 <a className="social-link" href="#"><FaFacebook/></a>
@@ -19,33 +20,15 @@ const Footer = () => {
 </div>
 </div>
 <div className="footer-section">
-<h3>News Categories</h3>
-<ul className="footer-links">
-<li><a href="#">Politics</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Economy</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Culture &amp; Arts</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Sports</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Education</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Health</a></li>
-</ul>
-</div>
-<div className="footer-section">
-<h3>Stock Market</h3>
-<ul className="footer-links">
-<li><a href="#"><i className="fas fa-chevron-right"></i> Market Overview</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Top Gainers</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Top Losers</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Sector Analysis</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Market News</a></li>
-<li><a href="#"><i className="fas fa-chevron-right"></i> Economic Calendar</a></li>
-</ul>
+  <h3>Sections</h3>
+  <div className="social-links flex flex-col gap-7">
+    <Link className='flex items-center gap-7'><FaNewspaper/> Articles</Link>
+    <Link className='flex items-center gap-7'><FaClock/> Latest news</Link>
+    <Link className='flex items-center gap-7'><FaChartPie/> Stock Market</Link>
+  </div>
 </div>
 <div className="footer-section">
 <h3>Contact Us</h3>
-<div className="contact-info flex items-center gap-2.5">
-<FaMapMarkerAlt/>
-<span>123 News Street, Tashkent, Uzbekistan</span>
-</div>
 <div className="contact-info flex items-center gap-2.5">
 <FaPhone/>
 <span>+998 71 123 4567</span>

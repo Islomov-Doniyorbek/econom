@@ -21,10 +21,13 @@ const Economy = () => {
     useEffect(() => {
       fetchArticles();
     }, []);
-  const blogs = articles.reverse().slice(-3)
+  const blogs = []
+  for (let i = 0; i < articles.length; i++) {
+    articles[i].topic === "ECONOMICS" ? blogs.push(articles[i]) : null;
+  }
   return (
     <section className="container" id="economic-articles">
-      <h2 className="section-title">Economic Articles <Link to={"/articles"}>Blogs</Link></h2>
+      <h2 className="section-title">Economic Articles </h2>
 
 
       <div className="news-grid">
@@ -53,6 +56,7 @@ const Economy = () => {
           })
         }
       </div>
+      <h3 className='w-full text-center text-xl hover:text-emerald-500'><Link to={"/articles"}>More</Link></h3>
     </section>
   );
 };
