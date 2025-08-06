@@ -321,6 +321,9 @@ body {
 .stock-price.negative {
   color: var(--danger);
 }
+.stock-price.positive {
+  color: var(--success);
+}
 .stock-symbol,
 .stock-change {
   font-size: 0.95rem;

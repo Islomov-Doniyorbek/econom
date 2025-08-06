@@ -8,64 +8,43 @@ const StockMarket = () => {
 
   useEffect(() => {
     const fetchAll = async () => {
-      // Localdan o'qish
-      const cached = JSON.parse(localStorage.getItem("stocksData"));
-
-      // Bugungi hafta (yyyy-mm-dd format)
-      const today = new Date();
-      const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-      const weekKey = weekStart.toISOString().split("T")[0];
-
-      // Agar cache mavjud bo'lsa va bugungi haftaniki bo‘lsa - foydalanamiz
-      if (cached && cached.week === weekKey) {
-        setStocks(cached.data);
-        return;
-      }
-
-      // Aks holda yangidan fetch qilamiz
       const results = [];
 
       for (let symbol of symbols) {
         try {
-          const res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${symbol}&apikey=${API_KEY}`);
+          const url = `https://api.twelvedata.com/time_series?apikey=${API_KEY}&interval=1min&symbol=${symbol}&type=stock`;
+          const res = await fetch(url);
           const data = await res.json();
-          const series = data['Weekly Time Series'];
-          
-          if (!series) continue;
+          console.log(data); // debugging
 
-          const dates = Object.keys(series);
-          const latestDate = dates[0];
-          const prevDate = dates[1];
+          if (!data || !data.values || data.values.length < 2) continue;
 
-          const latestClose = parseFloat(series[latestDate]['4. close']);
-          const prevClose = parseFloat(series[prevDate]['4. close']);
-          const average = (parseFloat(series[latestDate]['2. high']) + parseFloat(series[latestDate]['3. low'])) / 2;
+          const latest = data.values[0];
+          const previous = data.values[1];
+
+          const latestClose = parseFloat(latest.close);
+          const prevClose = parseFloat(previous.close);
+          const average = (parseFloat(latest.high) + parseFloat(latest.low)) / 2;
           const change = latestClose - prevClose;
           const percent = (change / prevClose) * 100;
 
           results.push({
             symbol,
-            date: latestDate,
+            date: latest.datetime.split(" ")[0],
             average: average.toFixed(2),
             change: change.toFixed(2),
             percent: percent.toFixed(2),
           });
-
         } catch (err) {
           console.error(`Error fetching ${symbol}:`, err);
         }
       }
 
-      // LocalStorage'ga saqlash
-      localStorage.setItem("stocksData", JSON.stringify({
-        week: weekKey,
-        data: results,
-      }));
-
       setStocks(results);
     };
+    setInterval(fetchAll(), 5 * 60 * 1000); // 5 daqiqada 1 marta
 
-    fetchAll();
+    // fetchAll();
   }, []);
 
   return (
@@ -89,7 +68,7 @@ const StockMarket = () => {
             <div key={i} className={`stock-card ${stock.change < 0 ? 'negative' : ''}`}>
               <div className="stock-name">{stock.symbol}</div>
               <div className="stock-symbol">{stock.date}</div>
-              <div className="stock-price">${stock.average}</div>
+              <div className={`stock-price ${stock.change < 0 ? 'negative' : 'positive'}`}>${stock.average}</div>
               <div className="stock-change">
                 {stock.change > 0 ? '+' : ''}
                 {stock.change} ({stock.percent}%)
