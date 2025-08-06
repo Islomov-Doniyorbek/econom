@@ -46,7 +46,7 @@ const Economy = () => {
                   <p className="news-excerpt">
                     {item.text.slice(0, 60)}...
                   </p>
-                  <Link to={`/article/${item.id}`}>Batafsil</Link>
+                  <Link className='font-semibold' to={`/article/${item.id}`}>Batafsil</Link>
                   <div className="news-meta">
                     <span>July 14, 2025</span>
                   </div>
@@ -56,7 +56,7 @@ const Economy = () => {
           })
         }
       </div>
-      <h3 className='w-full text-center text-xl hover:text-emerald-500'><Link to={"/articles"}>More</Link></h3>
+      <h3 className='w-full text-center text-xl hover:text-emerald-500 font-semibold'><Link to={"/articles"}>More</Link></h3>
     </section>
   );
 };
