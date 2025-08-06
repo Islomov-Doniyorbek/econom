@@ -28,7 +28,7 @@ const [articles, setArticles] = useState([]);
   const blogs2 = blogs.reverse().slice(0,3)
   return (
     <section className="container" id="economic-articles">
-      <h2 className="section-title">Science Articles</h2>
+      <h2 className="section-title">Historical Articles</h2>
 
 
       <div className="news-grid">

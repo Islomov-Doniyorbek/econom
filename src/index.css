@@ -329,6 +329,12 @@ body {
   font-size: 0.95rem;
   color: var(--gray);
 }
+.stock-change.negative {
+  color: var(--danger);
+}
+.stock-change.positive {
+  color: var(--success);
+}
 
 /* ========== Currency Grid ========== */
 .currency-grid {

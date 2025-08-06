@@ -52,15 +52,7 @@ const StockMarket = () => {
       <div className="stock-section">
         <div className="section-header">
           <h2>International Stock Market</h2>
-          <a href="#" className="view-all">View All Stocks <i className="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div className="stock-filters">
-          <button className="stock-filter active">Top Gainers</button>
-          <button className="stock-filter">Top Volume</button>
-          <button className="stock-filter">All Sectors</button>
-          <button className="stock-filter">Financials</button>
-          <button className="stock-filter">Commodities</button>
+          {/* <a href="#" className="view-all">View All Stocks <i className="fas fa-arrow-right"></i></a> */}
         </div>
 
         <div className="stock-grid">
@@ -69,7 +61,7 @@ const StockMarket = () => {
               <div className="stock-name">{stock.symbol}</div>
               <div className="stock-symbol">{stock.date}</div>
               <div className={`stock-price ${stock.change < 0 ? 'negative' : 'positive'}`}>${stock.average}</div>
-              <div className="stock-change">
+              <div className={`stock-change ${stock.change < 0 ? 'negative' : 'positive'}`}>
                 {stock.change > 0 ? '+' : ''}
                 {stock.change} ({stock.percent}%)
               </div>
