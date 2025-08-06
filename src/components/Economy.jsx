@@ -25,6 +25,7 @@ const Economy = () => {
   for (let i = 0; i < articles.length; i++) {
     articles[i].topic === "ECONOMICS" ? blogs.push(articles[i]) : null;
   }
+  const blogs2 = blogs.reverse().slice(0,3)
   return (
     <section className="container" id="economic-articles">
       <h2 className="section-title">Economic Articles </h2>
@@ -32,7 +33,7 @@ const Economy = () => {
 
       <div className="news-grid">
         {
-          blogs.map(item=>{
+          blogs2.map(item=>{
             return (
               <div className="news-card">
                 <img
@@ -56,7 +57,7 @@ const Economy = () => {
           })
         }
       </div>
-      <h3 className='w-full text-center text-xl hover:text-emerald-500 font-semibold'><Link to={"/articles"}>More</Link></h3>
+      <h3 className='w-full text-center text-xl hover:text-emerald-500 font-semibold'><Link to={"/maqolalar"}>More</Link></h3>
     </section>
   );
 };

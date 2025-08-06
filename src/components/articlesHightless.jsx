@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Header from './Header';
 import { Link } from 'react-router-dom';
 
-const Articles = () => {
+const ArticlesHightless = () => {
   const [articles, setArticles] = useState([]);
   const API = 'https://economily-production.up.railway.app/api/v1/article';
 
@@ -24,21 +24,25 @@ const Articles = () => {
     fetchArticles();
   }, []);
 
+  const blogs = []
+  for (let i = 0; i < articles.length; i++) {
+    articles[i].topic === "SCIENCE" ? blogs.push(articles[i]) : null;
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen text-gray-900">
       <Header />
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-center mb-12 text-indigo-800">Articles</h1>
+        <h1 className="text-4xl font-bold text-center mb-12 text-indigo-800">Science Article</h1>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
+          {blogs.map((article) => (
             <div
               key={article.id}
               className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
             >
-              <span className="news-category my-5">{article.topic}</span>
-              <h3 className="text-2xl my-4 font-semibold text-indigo-700 mb-2">{article.title}</h3>
+              <h3 className="text-2xl font-semibold text-indigo-700 mb-2">{article.title}</h3>
               <p className="text-sm text-gray-500 mb-1 italic">{article.subtitle}</p>
               <p className="text-gray-700 mt-3">
                 {article.text.length > 150 ? article.text.slice(0, 150) + '...' : article.text}
@@ -57,4 +61,4 @@ const Articles = () => {
   );
 };
 
-export default Articles;
+export default ArticlesHightless;

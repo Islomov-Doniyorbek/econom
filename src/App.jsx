@@ -17,6 +17,9 @@ import AdminDashboard from './components/admin';
 import AdminDashboard2 from './components/article';
 import Articles from './components/articles';
 import ArticleDetails from './components/[id]/articleDetails';
+import ArticlesNews from './components/articlesNews';
+import ArticlesMaqola from './components/articlesMaqola';
+import ArticlesHightless from './components/articlesHightless';
 
 
 
@@ -34,6 +37,9 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/article" element={<AdminDashboard2 />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/articlesNews" element={<ArticlesNews />} />
+            <Route path="/hightless" element={<ArticlesHightless />} />
+            <Route path="/maqolalar" element={<ArticlesMaqola />} />
             <Route path="/article/:id" element={<ArticleDetails />} />
         </Routes>
       </BrowserRouter>   

@@ -25,6 +25,7 @@ const Main = () => {
     for (let i = 0; i < articles.length; i++) {
       articles[i].topic === "NEWS" ? blogs.push(articles[i]) : null;
     }
+    const blogs2 = blogs.reverse().slice(0,3)
   return (
     <>
       {/* Hero Section */}
@@ -42,7 +43,7 @@ const Main = () => {
 
       <div className="news-grid">
         {
-          blogs.map(item=>{
+          blogs2.map(item=>{
             return (
               <div key={item.id} className="news-card">
                 <img
@@ -66,7 +67,7 @@ const Main = () => {
           })
         }
       </div>
-      <h3 className='w-full text-center text-xl hover:text-emerald-500 font-semibold'><Link to={"/articles"}>More</Link></h3>
+      <h3 className='w-full text-center text-xl hover:text-emerald-500 font-semibold'><Link to={"/articlesNews"}>More</Link></h3>
     </section>
     </>
   );
