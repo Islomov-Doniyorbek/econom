@@ -2,12 +2,27 @@ import React, { useEffect, useState } from 'react';
 import '../index.css';
 
 const StockMarket = () => {
-  const symbols = ["AAPL", "MSFT", "GOOGL", "TSLA"]; // 6 ta
+  const symbols = ["AAPL", "MSFT", "GOOGL", "TSLA"];
   const API_KEY = "1b54e1f38ca545c09216b7945582ac2b";
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
     const fetchAll = async () => {
+      // Localdan o'qish
+      const cached = JSON.parse(localStorage.getItem("stocksData"));
+
+      // Bugungi hafta (yyyy-mm-dd format)
+      const today = new Date();
+      const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+      const weekKey = weekStart.toISOString().split("T")[0];
+
+      // Agar cache mavjud bo'lsa va bugungi haftaniki bo‘lsa - foydalanamiz
+      if (cached && cached.week === weekKey) {
+        setStocks(cached.data);
+        return;
+      }
+
+      // Aks holda yangidan fetch qilamiz
       const results = [];
 
       for (let symbol of symbols) {
@@ -15,7 +30,6 @@ const StockMarket = () => {
           const res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${symbol}&apikey=${API_KEY}`);
           const data = await res.json();
           const series = data['Weekly Time Series'];
-          console.log(data);
           
           if (!series) continue;
 
@@ -27,7 +41,7 @@ const StockMarket = () => {
           const prevClose = parseFloat(series[prevDate]['4. close']);
           const average = (parseFloat(series[latestDate]['2. high']) + parseFloat(series[latestDate]['3. low'])) / 2;
           const change = latestClose - prevClose;
-          const percent = ((change) / prevClose) * 100;
+          const percent = (change / prevClose) * 100;
 
           results.push({
             symbol,
@@ -42,13 +56,17 @@ const StockMarket = () => {
         }
       }
 
+      // LocalStorage'ga saqlash
+      localStorage.setItem("stocksData", JSON.stringify({
+        week: weekKey,
+        data: results,
+      }));
+
       setStocks(results);
     };
 
     fetchAll();
   }, []);
-  console.log(stocks);
-  
 
   return (
     <section id="stock-market" className="container">
@@ -66,10 +84,9 @@ const StockMarket = () => {
           <button className="stock-filter">Commodities</button>
         </div>
 
-        <div className="stock-grid"> 
-          {stocks.map((stock, i) => {
-            return (
-              <div key={i} className={`stock-card ${stock.change < 0 ? 'negative' : ''}`}>
+        <div className="stock-grid">
+          {stocks.map((stock, i) => (
+            <div key={i} className={`stock-card ${stock.change < 0 ? 'negative' : ''}`}>
               <div className="stock-name">{stock.symbol}</div>
               <div className="stock-symbol">{stock.date}</div>
               <div className="stock-price">${stock.average}</div>
@@ -78,11 +95,7 @@ const StockMarket = () => {
                 {stock.change} ({stock.percent}%)
               </div>
             </div>
-            )
-          })}
-
-         
-
+          ))}
         </div>
       </div>
     </section>
