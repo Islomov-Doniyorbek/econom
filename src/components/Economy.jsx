@@ -35,7 +35,7 @@ const Economy = () => {
         {
           blogs2.map(item=>{
             return (
-              <div className="news-card">
+              <div className="news-card" id='economic'>
                 <img
                   src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600"
                   alt="Economic Growth"

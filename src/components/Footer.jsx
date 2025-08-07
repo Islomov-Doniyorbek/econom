@@ -19,16 +19,16 @@ const Footer = () => {
 <div className="footer-section">
   <h3>Sections</h3>
   <div className="social-links flex flex-col gap-7">
-    <Link className='flex items-center gap-7'><FaNewspaper/> Articles</Link>
-    <Link className='flex items-center gap-7'><FaClock/> Latest news</Link>
-    <Link className='flex items-center gap-7'><FaChartPie/> Stock Market</Link>
+    <Link className='flex items-center gap-7' to={"/articles"}><FaNewspaper/> Articles</Link>
+    <Link className='flex items-center gap-7' to={"/news"}><FaClock/> News</Link>
+    <a className='flex items-center gap-7' href="#stock-market"><FaChartPie/> Stock Market</a>
   </div>
 </div>
 <div className="footer-section">
 <h3>Contact Us</h3>
 <div className="contact-info flex items-center gap-2.5">
-<FaPhone/>
-<span>+998 98 125 19 81</span>
+  <FaPhone/>
+  <span>+998 98 125 19 81</span>
 </div>
 <div className="contact-info flex items-center gap-2.5">
 <FaTelegram/>

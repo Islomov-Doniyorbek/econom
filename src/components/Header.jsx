@@ -30,19 +30,17 @@ const Header = () => {
         >
           <li className="nav-item">
             <Link to="/">
-              <a className="nav-link active" href="#">Home</a>
+              <b className="nav-link active" href="#">Home</b>
             </Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#news">News</a>
           </li>
           <li className="nav-item">
-            <Link to="/articles">
-              <a className="nav-link" href="#articles">Articles</a>
-            </Link>
+            <a className="nav-link" href="#historical">Historical</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#science">Science</a>
+              <a className="nav-link" href="#economic">Economic</a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#stock-market">Stock Market</a>

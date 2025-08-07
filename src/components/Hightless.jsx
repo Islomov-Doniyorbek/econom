@@ -7,15 +7,30 @@ const [articles, setArticles] = useState([]);
     const API = 'https://economily-production.up.railway.app/api/v1/article';
   
     const fetchArticles = async () => {
-      const token = localStorage.getItem('token');
-      const res = await fetch(`${API}/all`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
-      setArticles(data.data || []);
-    };
+  const token = localStorage.getItem('token');
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
+
+  try {
+    const res = await fetch(`${API}/all`, {
+      headers: headers,
+    });
+
+    if (!res.ok) {
+      console.error('Failed to fetch articles');
+      return;
+    }
+
+    const data = await res.json();
+    setArticles(data.data || []);
+  } catch (err) {
+    console.error('Error fetching articles:', err);
+  }
+};
+
   //   setArticles(articles.reverse())
   
     useEffect(() => {
@@ -35,7 +50,7 @@ const [articles, setArticles] = useState([]);
         {
           blogs2.map(item=>{
             return (
-              <div className="news-card">
+              <div className="news-card" id='historical'>
                 <img
                   src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600"
                   alt="Economic Growth"
