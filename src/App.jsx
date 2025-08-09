@@ -20,6 +20,7 @@ import ArticleDetails from './components/[id]/articleDetails';
 import ArticlesNews from './components/articlesNews';
 import ArticlesMaqola from './components/articlesMaqola';
 import ArticlesHightless from './components/articlesHightless';
+import StockCharts from './components/[id]/stockCharts';
 
 
 
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/hightless" element={<ArticlesHightless />} />
             <Route path="/maqolalar" element={<ArticlesMaqola />} />
             <Route path="/article/:id" element={<ArticleDetails />} />
+            <Route path="/stock/:symbol" element={<StockCharts />} />
         </Routes>
       </BrowserRouter>   
     </AuthProvider>

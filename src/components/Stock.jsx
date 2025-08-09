@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../index.css';
 
 const StockMarket = () => {
@@ -15,13 +16,11 @@ const StockMarket = () => {
           const url = `https://api.twelvedata.com/time_series?apikey=${API_KEY}&interval=1min&symbol=${symbol}&type=stock`;
           const res = await fetch(url);
           const data = await res.json();
-          console.log(data); // debugging
 
-          if (!data || !data.values || data.values.length < 2) continue;
+          if (!data?.values?.length >= 2) continue;
 
           const latest = data.values[0];
           const previous = data.values[1];
-
           const latestClose = parseFloat(latest.close);
           const prevClose = parseFloat(previous.close);
           const average = (parseFloat(latest.high) + parseFloat(latest.low)) / 2;
@@ -42,30 +41,29 @@ const StockMarket = () => {
 
       setStocks(results);
     };
-    setInterval(fetchAll(), 5 * 60 * 1000); // 5 daqiqada 1 marta
 
-    // fetchAll();
+    fetchAll();
+    const interval = setInterval(fetchAll, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="stock-market" className="container">
+    <section className="container">
       <div className="stock-section">
-        <div className="section-header">
-          <h2>International Stock Market</h2>
-          {/* <a href="#" className="view-all">View All Stocks <i className="fas fa-arrow-right"></i></a> */}
-        </div>
-
+        <h2>International Stock Market</h2>
         <div className="stock-grid">
           {stocks.map((stock, i) => (
-            <div key={i} className={`stock-card ${stock.change < 0 ? 'negative' : ''}`}>
-              <div className="stock-name">{stock.symbol}</div>
-              <div className="stock-symbol">{stock.date}</div>
-              <div className={`stock-price ${stock.change < 0 ? 'negative' : 'positive'}`}>${stock.average}</div>
-              <div className={`stock-change ${stock.change < 0 ? 'negative' : 'positive'}`}>
-                {stock.change > 0 ? '+' : ''}
-                {stock.change} ({stock.percent}%)
+            <Link to={`/stock/${stock.symbol}`} key={i}>
+              <div className={`stock-card ${stock.change < 0 ? 'negative' : ''}`}>
+                <div className="stock-name">{stock.symbol}</div>
+                <div className="stock-symbol">{stock.date}</div>
+                <div className={`stock-price ${stock.change < 0 ? 'negative' : 'positive'}`}>${stock.average}</div>
+                <div className={`stock-change ${stock.change < 0 ? 'negative' : 'positive'}`}>
+                  {stock.change > 0 ? '+' : ''}
+                  {stock.change} ({stock.percent}%)
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

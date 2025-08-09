@@ -49,11 +49,20 @@ const Header = () => {
             {email ? (
               <p className="flex gap-5 items-center">
                 {email.slice(0, 7)}{' '}
-                <button
+                {email==="admin@example.com" ? <button
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
                   onClick={() => navigate('/admin')}
                 >
                   Admin
+                </button> : null}
+                <button
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-md transition"
+                  onClick={() => {
+                    navigate('/login')
+                    localStorage.clear()
+                  }}
+                >
+                  Log Out
                 </button>
               </p>
             ) : (

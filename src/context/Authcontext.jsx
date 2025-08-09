@@ -36,15 +36,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (fullName, email, password) => {
-    const res = await fetch("https://economily-production.up.railway.app/api/v1/auth/register-by-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({fullName, email, password }),
-    });
-    console.log("Response:", res.status);
-    
-    if (!res.ok) throw new Error("Register failed");
-  };
+  const res = await fetch("https://economily-production.up.railway.app/api/v1/auth/register-by-email", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fullName, email, password }),
+  });
+  const data = await res.json();
+  console.log("Register response:", data);
+  
+  if (!res.ok) throw new Error(data.message || "Register failed");
+};
+
   
   const verify = async (email, code) => {
     const res = await fetch("https://economily-production.up.railway.app/api/v1/auth/verify", {
