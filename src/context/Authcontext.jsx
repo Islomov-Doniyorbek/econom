@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
   });
   const data = await res.json();
   console.log("Register response:", data);
+  console.log("Register response:", res);
   
   if (!res.ok) throw new Error(data.message || "Register failed");
 };
