@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart,
-  Legend,
-  Bar
+  Legend
 } from 'recharts';
 
 const API_KEY = "1b54e1f38ca545c09216b7945582ac2b";
@@ -35,15 +33,14 @@ const StockCharts = () => {
       </p>
       {data.length > 0 ? (
         <ResponsiveContainer width="60%" height={600}>
-          <BarChart data={data}>
+          <LineChart data={data}>
             <CartesianGrid strokeDasharray="8 8" />
             <XAxis dataKey="datetime" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="close" fill="#82ca9d" />
-            {/* <Line type="monotone" dataKey="close" stroke="#8884d8" strokeWidth={2} /> */}
-          </BarChart>
+            <Line type="monotone" dataKey="close" stroke="#8884d8" strokeWidth={2} />
+          </LineChart>
         </ResponsiveContainer>
       ) : (
         <p>Yuklanmoqda...</p>
