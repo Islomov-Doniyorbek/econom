@@ -62,7 +62,7 @@ const Header = () => {
                     localStorage.clear()
                   }}
                 >
-                  Log Out
+                  Logout
                 </button>
               </p>
             ) : (
